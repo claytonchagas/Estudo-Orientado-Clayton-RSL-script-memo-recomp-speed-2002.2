@@ -1,0 +1,337 @@
+\documentclass[sigconf]{acmart}
+
+\usepackage{float}
+\usepackage{textgreek}
+
+%encoding
+%--------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%--------------------------------------
+
+%Portuguese-specific commands
+%--------------------------------------
+\usepackage[brazilian]{babel}
+%--------------------------------------
+
+%Hyphenation rules
+%--------------------------------------
+\usepackage{hyphenat}
+\hyphenation{mate-mática recu-perar}
+%--------------------------------------
+
+%Add codes and colors
+%--------------------------------------
+\usepackage{listings}
+\usepackage{xcolor}
+%--------------------------------------
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+\acmConference[Estudo Orientado 2020.2]{Estudo Orientado 2020.2: Orientador Prof. Leonardo Murta}{13 de dezembro de 2020}{UFF, Niterói, RJ}
+
+%Retirando o box ACM Reference Format
+\settopmatter{printacmref=false}
+
+\setcopyright{none}
+\renewcommand\footnotetextcopyrightpermission[1]{}
+\pagestyle{plain}
+
+\begin{document}
+
+\title{Como acelerar a execução de softwares escritos em linguagens de script? Uma Revisão Sistemática da Literatura}
+
+\author{Clayton Escouper das Chagas}
+\affiliation{%
+  \institution{Universidade Federal Fluminense}
+  \city{Niterói}
+  \state{Rio de Janeiro}
+  \country{Brasil}}
+\email{claytonchagas@id.uff.br}
+
+\renewcommand{\shortauthors}{Clayton Escouper das Chagas}
+
+\begin{abstract}
+As linguagens de script estão cada vez mais presentes no dia a dia da tecnologia, desde testes em experimentos científicos, passando por análises complexas em ciência de dados, até a construção de sistemas web corporativos e de e-commerce. Nestes ambientes, acelerar a execução do programa é uma ação desejável ou até uma necessidade premente. Diante da heterogeneidade de linguagens e arquiteturas envolvidas nesse escopo, um levantamento e análise profunda das técnicas empregadas para conseguir um resultado ótimo nas questões de performance passa a ser relevante. O objetivo deste artigo é proceder uma Revisão Sistemática da Literatura, com a finalidade de responder a seguinte questão base desta pesquisa: \textbf{"De que forma os softwares escritos em linguagens de script podem ter sua execução acelerada?"}
+\end{abstract}
+
+\keywords{Revisão Sistemática da Literatura, linguagens de script, aceleração da execução, memoization, recomputação, computação incremental}
+
+\maketitle
+
+\section{Introdução}
+As \textbf{linguagens de script} tem se popularizado nos últimos anos e sua utilização é dominante em áreas como desenvolvimento web, através de Javascript, e ciência de dados e computação científica, através de Python e R \cite{IEEESpectrum:2020}\cite{GitHubOctoverse:2020}\cite{StackOverflow:2020}\cite{TIOBEIndex:2020}\cite{PYPL:2020}. Elas são de fácil compreensão e tem grande flexibilidade para integrar diferentes arquiteturas e tecnologias, além de outras facilidades \cite{ousterhout1998scripting}. Apesar das vantagens, elas são interpretadas, o que faz a performance ser menor do que linguagens puramente compiladas.
+
+Assim, as linguagens de script possuem mecanismos para lidar com estas questões de velocidade, dentre as quais podemos citar computação de alto desempenho com GPU, aumento de escalabilidade com computação em nuvem, otimização interna implementada nos compiladores e interpretadores, análise e melhoria de pontos de gargalo no código e Recomputação.
+
+Com o barateamento dos recursos computacionais físicos e em nuvem, o que facilitou o acesso à processamento intensivo, e o desenvolvimento de novas técnicas como Inteligência Artificial e Aprendizado de Máquina, novas abordagens tem sido propostas para melhorar ainda mais a performance da aceleração, bem como torná-la mais seletiva e inteligente.
+
+Diante deste cenário tão heterogêneo, uma releitura das técnicas utilizadas na atualidade para aceleração de scripts se mostra útil, desde as mais tradicionais até as mais modernas, onde seria interessante a comparação da complexidade e performance de tais abordagens, assim como o cenário onde elas são mais aplicáveis. Porém, há um hiato na organização de tais estudos e técnicas, de tal forma que faz sentido um estudo organizado sistemático para fins de identificação e comparação.
+
+O objetivo deste trabalho é proceder uma Revisão Sistemática da Literatura, buscando cobrir as lacunas citadas e responder a seguinte questão global desta pesquisa: \textbf{"De que forma os softwares escritos em linguagens de script podem ter sua execução acelerada?"} 
+
+Com o intuito de tentar atingir este objetivo, este artigo contém, além desta introdução, uma seção 2 que descreve o referencial teórico necessário para compreender o escopo desta revisão, uma seção 3 que define as questões de pesquisa associadas a este estudo, uma seção 4 com os detalhamentos do protocolo da revisão, uma seção 5 com os resultados da pesquisa e análise, uma seção 6 com a apresentação das ameaças à validade, uma seção 7 com os trabalhos futuros e, por fim, uma seção 8 com as conclusões, seguida das referências.
+
+
+\section{Referencial teórico}
+Com o aumento da utilização das linguagens de script \cite{IEEESpectrum:2020}\cite{GitHubOctoverse:2020}\cite{StackOverflow:2020}\cite{TIOBEIndex:2020}\cite{PYPL:2020}, inclusive em cenários de processamento pesado, muitos mecanismos para acelerar a velocidade da execução destes experimentos tem sido propostos e estão documentados na literatura \cite{nguyen2013cachetor}\cite{della2015performance}\cite{fitzpatrick2004distributed}.
+
+Essa popularização se deve ao fato de tais linguagens serem de fácil compreensão e terem grande flexibilidade para integrarem diferentes arquiteturas, camadas, tecnologias e outras facilidades \cite{ousterhout1998scripting}. Além disso, tanto o apoio comunitário quanto a quantidade de ferramentas de desenvolvimento e suporte tem acompanhado tal crescimento, fazendo com que este movimento possa ser considerado uma tendência, ainda pelo menos por um bom período.
+
+Apesar das vantagens apresentadas, as linguagens de script são geralmente interpretadas, fazendo com que haja uma camada adicional na pilha de execução do programa a nível de aplicação. Tal característica faz com que a execução dessas linguagens sejam, originalmente ou pelo menos teoricamente, mais lentas do que linguagens puramente compiladas, onde arquivo executável gerado roda diretamente sobre o código da máquina que está sendo processado.
+
+Diante de tais limitações, a maioria das linguagens de script, conforme vão amadurecendo, vão também agregando mecanismos para lidar com essas questões de velocidade de execução. Dentre os vários mecanismos existentes na atualidade, podemos citar:
+\begin{itemize}
+\item Computação de alto desempenho com GPU;
+\item Aumento de escalabilidade via computação em nuvem;
+\item Otimização interna implementada nos compiladores e interpretadores;
+\item Análise e melhoria de pontos de gargalo no código, desde análise visual manual até utilização de técnicas de profiling;
+\item Recomputação.
+\end{itemize}
+
+Muitos desses mecanismos já são conhecidos, porém, as novas utilizações das linguagens de script e o aumento da quantidade de dados e consequente explosão do processamento, fez com que novas técnicas surgissem, de forma a otimizar o processamento de tais demandas.
+
+Se por um lado, a literatura tradicional documenta os mecanismos clássicos de otimização e aceleração da execução, as técnicas modernas, melhorias ou novas camadas arquiteturais adicionadas às técnicas clássicas carecem de uma organização e comparação, o que motivou este trabalho, através da Revisão Sistemática da Literatura iniciada.
+
+Uma Revisão Sistemática da Literatura (RSL) é, por definição, uma metodologia cujo objetivo é identificar, analisar e interpretar as evidências concretas que têm relação com um tópico de pesquisa ou fenômeno que está sendo estudado ou observado \cite{nakagawa2017revisao}.
+
+Uma RSL conduzida em qualquer estudo, também tem o objetivo de pavimentar a pesquisa desenvolvida, no sentido de tentar garantir a segurança que os assuntos tratados tem coesão do ponto de vista de pesquisa, são assuntos ainda não explorados (originalidade e inovação) e tem relevância para a comunidade acadêmica, para a indústria e para o mercado de interesse.
+
+A justificativa inicial para a condução de uma RSL, dado o tempo e esforço necessário para execução da mesma, uma vez que um tópico tenha relevância, é a garantia que ainda não existe uma RSL no assunto a ser estudado, ou seja, não exista um estudo terciário, uma vez que a RSL é um estudo secundário, originada a partir de estudos primários. Caso uma RSL tenha sido encontrada, pode ser estudado se faz sentido a mesma ser atualizada, principalmente com o objetivo de garantir a originalidade da pesquisa, além de reafirmar as condições de relevância.
+
+Para o assunto deste artigo, numa série de pesquisas iniciais, não foram encontrados estudos secundários que organizassem o referido tópico, que ajudasse no questionamento inicialmente apresentado, o que ratificou a necessidade de tal revisão e fez com que a questão inicial fosse desdobrada nas questões de pesquisa que serão apresentadas a seguir.
+
+
+\section{Questões de pesquisa}
+Diante de todo o apresentado nas seções anteriores, o objetivo desta RSL é explorar e documentar de forma sistemática a resposta à seguinte questão geral: 
+
+\textbf{"De que forma os softwares escritos em linguagens de script podem ter sua execução acelerada?”}
+
+Considerando este objetivo, uma questão importante é definirmos o que é uma linguagem de script. No escopo desta revisão, interpretamos linguagens de script de acordo com os conceitos discutidos e o escopo definido nas referências \cite{loui2008praise}, \cite{van1998glue}, \cite{WikipediaScriptingLanguage:2020} e \cite{WikipediaListofProgrammingLanguagesbyType:2020}, tanto para as linguagens de script de propósito geral, por exemplo Python, Perl, quanto para algumas de domínio específico, por exemplo JavaScript, que é utilizada no domínio de navegadores web.
+
+A partir de então, desdobraremos a questão geral às seguintes questões específicas, a serem respondidas após análise dos artigos que passaram pelos filtros definidos do protocolo que será apresentado:  
+
+- \textbf{QP1:} {\textit{Quais são as abordagens utilizadas para acelerar a execução de softwares escritos em linguagens de script?}}
+
+- \textbf{QP2:} {\textit{Quais técnicas são utilizadas pelas abordagens?}}
+
+- \textbf{QP3:} {\textit{Qual é o grau de disponibilidade das abordagens, que permita reprodutibilidade?}}
+
+- \textbf{QP4:} {\textit{Qual o grau de intervenção do usuário?}}
+
+- \textbf{QP5:} {\textit{Como as abordagens foram avaliadas?}}
+
+- \textbf{QP6:} {\textit{Quais são as vantagens e desvantagens observadas?}}
+
+- \textbf{QP7:} {\textit{Quais são as questões em aberto no tema?}}
+
+
+\section{Definições do protocolo da revisão}
+A estratégia de busca dessa RSL seguirá as orientações da metodologia híbrida indicada pelos estudos de Mourão et al. \cite{mourao2020performance}, que combina a pesquisa em base de dados bibliográfica com \textit{snowballing} paralelo ou sequencial para atingir um bom equilíbrio entre as métricas de \textit{precision} e \textit{recall}.
+
+
+
+
+
+\section{Estudo de caso motivacional}
+Será estudado o comportamento da sequência de Fibonacci, implementação em Python recursiva e sem memoization, sem otimização e considerada custosa computacionalmente. Este estudo de caso será a linha base para novas evoluções da implementação e fazermos novas análises. 
+\renewcommand{\lstlistingname}{Código}
+\begin{lstlisting}[language=Python, caption=Fibonacci recursivo sem memoization]
+def fib_r(n):
+    if   n == 1 or n == 0:
+        return n
+    return fib_r(n-1) + fib_r(n-2)
+\end{lstlisting}
+
+O cálculo da sequência até 35 foi executado cinco vezes e a média do tempo de execução foi de \textbf{3.84 seg}.
+
+A Tabela~\ref{tab:fibrscache} mostra o resultado de cada execução, seguido do tempo calculado.
+
+\begin{table}[ht]
+  \caption{Fibonacci de 35 recursivo sem memoization}
+  \label{tab:fibrscache}
+  \begin{tabular}{cccl}
+    \toprule
+    Execução & Memo & Resultado & Tempo de execução em seg\\
+    \midrule
+    1 & N & 9227465 & 4.4035797119140625\\
+    2 & N & 9227465 & 3.7456274032592773\\
+    3 & N & 9227465 & 3.5105481147766113\\
+    4 & N & 9227465 & 3.465515613555908\\
+    5 & N & 9227465 & 4.0564284324646\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\section{Implementações e avaliações}
+\subsection{Utilizando memoization}
+Com o objetivo de melhorar a performance do script anterior, linha base do estudo, foi utilizada uma técnica de recomputação baseada na implementação clássica de memoization, na qual o resultado das execuções são armazenadas em cache para posterior recuperação em próximas execuções.
+
+A cada chamada é feita uma consulta para verificar se existe no banco de dados SQLite3 construído, um código correspondente ao hash calculado a partir do nome da função, dos argumentos inseridos como parâmetros e do código da função, concatenado com ".ipcache". Caso exista ("hit"), um objeto serializado armazenado no subdiretório "cache" do diretório ".intpy" do projeto é retornado desserializado, cujo conteúdo tem o valor de retorno para as referidas entradas, sendo então reaproveitado e evitando o reprocessamento da função. O nome do arquivo binário é o hash de 32 caracteres alfanuméricos com a extensão ".ipcache".
+
+\begin{table}[ht]
+  \caption{Fibonacci de 35 recursivo com memoization}
+  \label{tab:fibrccache}
+  \begin{tabular}{cccl}
+    \toprule
+    Execução & Memo & Resultado & Tempo de execução em seg\\
+    \midrule
+    1 & S & 9227465 & 0.41294288635253906\\
+    2 & S & 9227465 & 0.004912853240966797\\
+    3 & S & 9227465 & 0.0064105987548828125\\
+    4 & S & 9227465 & 0.004725933074951172\\
+    5 & S & 9227465 & 0.004608869552612305\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+Se a consulta não encontrar o hash no banco ("miss") a função é calculada, o resultado é retornado para o programa principal e armazenado para posterior reaproveitamento, numa operação inversa à anterior. O hash com a extensão ".ipcache" e o valor de retorno calculado são serializados e armazenados no subdiretório "cache". O cache concatenado com a extensão é armazenado no banco de dados para serem utilizados posteriormente, conforme explicado no processo de "hit".
+
+Um interceptador (\textbf{IntPy}: "Interceptor Python") injeta o comportamento na função através do decorador @deterministic:
+
+\renewcommand{\lstlistingname}{Código}
+\begin{lstlisting}[language=Python, caption=Fibonacci recursivo com memoization]
+@deterministic
+def fib_r(n):
+    if   n == 1 or n == 0:
+        return n
+    return fib_r(n-1) + fib_r(n-2)
+\end{lstlisting}
+
+No experimento realizado para este artigo, as cinco execuções com memoization para o cálculo de Fibonacci de 35 teve média de \textbf{0.0867 seg} (execuções na Tabela~\ref{tab:fibrccache}), tempo bem menor que os 3.84 seg alcançados anteriormente, sem memoization.
+
+A primeira execução é mais lenta, pois a estrutura de banco e diretórios é criada e o reaproveitamento é parcial. Nas demais não tem construção ou o cálculo, pois o valor da entrada já é retornado como resposta. Todas as demais execuções são de 10\textsuperscript{-3} seg.
+
+O próximo teste é um cálculo de valores crescentes, para avaliar se o algoritmo reaproveita o cache com entradas alteradas. O teste é feito apagando o cache e depois calculando a sequência de 35, 40, 45, 50 e 55 com memoization, conforme a Tabela~\ref{tab:fibrccache2}.
+
+\begin{table}[H]
+  \caption{Fibonacci recursivo crescente com memoization}
+  \label{tab:fibrccache2}
+  \begin{tabular}{crl}
+    \toprule
+    Fib de n & Resultado & Tempo de execução em seg\\
+    \midrule
+    35 & 9227465 & 0.5243172645568848\\
+    40 & 102334155 & 0.09521985054016113\\
+    45 & 1134903170 & 0.08570146560668945\\
+    50 & 12586269025 & 0.05901336669921875\\
+    55 & 139583862445 & 0.10146331787109375\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+Mesmo com entradas diferentes, que invalida o hash inicial, o algoritmo reaproveita valores intermediários, calculando somente as diferenças dos valores ainda não conhecidos. Portanto, continua sendo mais rápido que a implementação sem memoization, mesmo com mudanças nas entradas. No caso de entradas maiores que as armazenadas, o processamento será feito somente até o limite do que já foi processado. Por exemplo, ao executar o Fib de 40, como já foi calculado o de 35, o algoritmo só precisa processar de 40 a 36, reaproveitando as informações que estão no cache. Para entradas menores, o valor do cache é retornado imediatamente, pois é um subconjunto do universo de um valor já calculado.
+
+\subsection{Adicionando comentários}
+Mesmo com entradas diferentes, o cache continua sendo vantajoso em relação à implementação clássica do cálculo de Fibonacci. No próximo teste será adicionado um comentário à função anterior e será feita a chamada para o cálculo de um valor de Fibonacci já conhecido e armazenado, por exemplo, o Fibonacci de 35.
+
+\renewcommand{\lstlistingname}{Código}
+\begin{lstlisting}[language=Python, caption=Fibonacci recursivo com memoization comentado]
+@deterministic
+def fib_r(n):
+    # Este codigo pode ser reescrito com "if n < 2:"
+    if n == 1 or n == 0:
+        return n
+    return fib_r(n-1) + fib_r(n-2)
+\end{lstlisting}
+
+Apesar do valor estar no cache (9227465), devido à adição do comentário, houve alteração nos valores do hash ("miss") e o algoritmo calculou integralmente a sequência. A execução foi de \textbf{0.4451727867126465 seg}, mesma ordem de grandeza de quando o cache de 35 não existia, por ocasião da primeira execução com memoization (vide Tabela~\ref{tab:fibrccache}). O algoritmo considerou que foi feita uma implementação diferente, sendo que o comportamento do código não foi alterado. Isso pode ser confirmado fazendo uma consulta no subdiretório "cache", onde é verificado que novas entradas equivalentes ao número cujo cálculo foi solicitado foram adicionadas ao subdiretório, no caso mais 36 novos objetos serializados.
+
+\subsection{Utilizando AST da função}
+O comportamento observado na análise anterior é consequência do hash ser baseado num cálculo que leva em consideração o código fonte do ponto de vista textual, onde qualquer alteração de estilo, adição de comentários ou até um simples espaço ou troca deste por tab (comum em Python), gera um novo hash e a consulta no banco de dados retorna um "miss". 
+
+A proposta para mudar este resultado é alterando o algoritmo para considerar não mais o código fonte em si (texto), mas a árvore sintática abstrata \cite{aho1986compilers}(AST) do código da função. Para isso é utilizado o módulo ast do Python junto com o módulo inspect, que já era utilizado para capturar o código fonte das funções, injetados quando e onde necessário. O inspect do código é encapsulado pelas funções ast.parse e ast.dump para gerar a árvore sintática abstrata de cada função alvo, gerando um hash sintático, que ignora alterações de estilo e comentários.
+
+Para testar a nova implementação o cache é apagado e o código sem comentários é executado (vide Código 2). A finalidade deste procedimento é fazer com que a infraestrutura do cache seja construída e os valores relativos ao cálculo de Fib de 35 sejam armazenados.
+
+A execução retorna o valor calculado mas de forma integral (9227465) e o tempo de execução é da mesma ordem de grandeza dos experimentos anteriores com cache por ocasião da primeira execução (0.4826481342315674 seg), conforme esperado.
+
+Foi inserido o mesmo comentário da análise anterior (vide Código 3) e o código foi executado novamente para o cálculo de Fib de 35.
+
+Após a execução, o valor retornado no cálculo foi correto (9227465), porém o tempo de execução foi de 0.004863739013671875 seg, mesma ordem de grandeza das execuções anteriores com cache após a primeira execução, o que faz sentido, uma vez que na verdade o valor não foi recalculado, mas sim foi o retorno de um valor já armazenado, uma vez que o hash calculado foi o mesmo, pois levou em consideração a AST de ambos os códigos, que é a mesma, apesar da diferença no texto.
+
+Para confirmar que o cache funcionou o subdiretório "cache" do diretório ".intpy" é consultado e verifica-se que não há adição de novos objetos serializados.
+
+\subsection{Análises complementares}
+Algumas análises complementares foram realizadas para levantar outros problemas que ajudam nas questões de pesquisa, porém, nesta versão do IntPy, os mesmos ainda não foram integralmente solucionados e ficarão como trabalhos futuros desta pesquisa.
+
+Da mesma forma que alterações de estilo e comentários podem invalidar o cache na implementação clássica de memoization, a refatoração pode mudar o hash calculado. Neste caso, mesmo com a utilização de AST, o cache pode ser invalidado, uma vez que refatorações potencialmente geram códigos com ASTs diferentes.
+
+Isso foi confirmado implementando a alteração sugerida pelo comentário das análises anteriores, onde a expressão "n == 1 or n == 0" foi substituída pela expressão "n < 2", que no contexto do script apresentado tem a mesma semântica, ou seja, vai fornecer o mesmo resultado, mas tem uma sintaxe diferente, portanto gerará uma AST diferente.
+
+Este código foi testado e mesmo com a implementação que compara o hash das ASTs, o cache não foi recuperado, conforme esperado. Este trabalho, apesar de confirmar o problema levantado, não conseguiu apresentar uma solução para o mesmo, mas identificou um possível caminho, através de análise e comparação a nível de bytecode, uma vez que os interpretadores fazem reduções a expressões equivalentes no nível de bytecode. Foram feitos alguns testes como prova de conceito e demonstraram que em várias situações expressões equivalentes geram ASTs diferentes, mas bytecodes iguais, tendo portanto potencial.
+
+Outra análise feita e que deve ser alvo de melhorias no IntPy é em relação a quais partes do código da infraestrutura são mais custosas computacionalmente. Isso faz com que a própria execução do IntPy sobrecarregue o tempo de execução dos algoritmos que estão sendo analisados. Este comportamento é crítico principalmente para funções mais rápidas. Assim, com tais aferições, o IntPy poderia decidir se vale a pena ou não para um determinado caso, construir a infraestrutura do cache, uma vez que seu custo pode ser muitas vezes maior que a própria execução principal. Incluir esta inteligência no IntPy é uma funcionalidade interessante e uma análise de profiling é o caminho para esta implementação.
+
+A prova de conceito do profiling foi realizada com algumas execuções dos experimentos analisados através do módulo cProfile (\url{https://docs.python.org/3/library/profile.html}) do Python e foi verificado que para as primeiras execuções do cálculo de Fibonacci recursivo com memoization, que são mais custosas por causa da construção da infraestrutura do IntPy, para o Fib de 35, aproximadamente 67\% do tempo de execução é gasto com as operações de "insert" e "commit" no banco de dados, mostrando ser um gargalo importante a ser solucionado. Uma possível solução é a execução de threads para efetuar estas operações, independentes do cálculo principal e retorno do resultado para o usuário.
+
+\subsection{Avaliação de outros algoritmos}
+Foi testada a memoization com AST para o cálculo de potência com implementação recursiva, para o caso de 100\textsuperscript{190} e o algoritmo quicksort para a sequência de números inteiros: [1, 3, 5, 2, 5, 0, 333, 2, 3, 10, 15, 20, 44, 33, 22, 64, 76, 87, 87, 98, 65, 100, 1234, 2, 345, 456, 343, 656, 767, 323, 4343, 6565, 6767, 8787, 9898, 98, 3434]. Tais algoritmos são rápidos se comparados com nosso caso base.
+
+O valor médio de 5 execuções do cálculo de potência sem cache foi de 0.0002 seg. Com memoization foi de 2.20 seg na primeira execução, pois há a construção da infraestrutura do cache e o cálculo integral da potência. Mesmo as execuções mais rápidas que utilizam o cache (após a primeira), não se mostram melhores que o código original, com valor na ordem de 0.005 seg nas 5 execuções. No quicksort o comportamento foi o mesmo. O cálculo implementado classicamente foi da ordem de 7x10\textsuperscript{-5} seg em 5 execuções. O valor com memoization foi de 0.45 seg na primeira execução e entre 0.005 seg e 0.006 seg nas outras 5 execuções.
+
+O algoritmo de Fibonacci, implementação iterativa, tem desempenho melhor que o recursivo, principalmente quando o número alvo aumenta, pois a complexidade no tempo do iterativo é linear e do recursivo é exponencial. Os recursivos são de mais fácil compreensão e reuso do que os iterativos, mas seu desempenho é inferior principalmente quando os números vão crescendo. Isso se confirmou, tendo o comportamento similar dos outros dois algoritmos testados. O cálculo clássico é da ordem de 10\textsuperscript{-6} seg. Com memoization foi de 0.012 seg na primeira execução e as demais, que aproveitam integralmente o cache são da ordem de 0.005 seg.
+
+\section{Trabalhos relacionados}
+Na literatura que trata de memoization ou técnicas similares de cache para recomputação, no campo das linguagens de script, a referência é o IncPy \cite{guo2011using}, que é uma implementação automática de suporte à recomputação, fazendo análise dinâmica, rastreamento de dependências, persistência de cache, profiling e detecção de funções impuras. No trabalho o autor escreveu milhares de linhas de código em C para implementar um interpretador IncPy compatível com a versão 2.6.3 do Python. Após mais de 10 anos o interpretador não foi atualizado, o que inviabiliza sua utilização prática para vários experimentos. Mesmo assim, é o mais referenciado da área.
+
+Além do IncPy, outros trabalhos foram desenvolvidos principalmente para Java, como o Cachetor\cite{nguyen2013cachetor} e o MemoizeIt\cite{della2015performance}, utilizando uma ou mais das técnicas implementadas no IncPy mas com mais intervenção necessária. Nenhum destes trabalhos trata o problema da evolução do software do ponto de vista de alteração de estilo, adição de comentários ou refatoração num ambiente de recomputação.
+
+\section{Conclusões}
+Respondendo às questões de pesquisa (vide Seção 2):
+
+- \textbf{R\_QP1:} Refatoração, mudanças de estilo e comentários afetam de forma determinante os mecanismos de recomputação, desperdiçando caches que potencialmente poderiam ser reutilizados.
+
+- \textbf{R\_QP2:} Elevar o nível de abstração para análise sintática e semântica ao invés de considerar o código textualmente parece promissor para ajudar nos problemas identificados na QP1.
+
+- \textbf{R\_QP3:} A recomputação deve ser seletiva para conseguir identificar os algoritmos que valem a pena utilizar a estrutura de cache ou ignorá-la, pois utilizá-la de forma indiscriminada pode ser mais custoso do que executar nativamente algoritmos eficientes ou com entradas de valores cujo processamento seja rápido.
+
+- \textbf{R\_QP4:} Diferentes técnicas e implementações para o mesmo algoritmo devem buscar a mesma seletividade em relação à utilização de cache discutida na R\_QP3, uma vez que pode ocorrer o mesmo comportamento.
+
+A evolução para a implementação atual do IntPy consegue resolver em parte os problemas levantados na QP1. Para conseguir solucioná-los em relação à cobertura das técnicas de refatoração, novos métodos para verificação de similaridade com testes, bytecode e AST devem ser buscados em trabalhos futuros.
+
+Podemos citar algumas ameaças à validade. A utilização de forma indiscriminada do decorador pode degradar o desempenho, como foi mostrado nas análises e destacado nas R\_QP3 e R\_QP4. Para resolver esta ameaça, em trabalhos futuros podem ser buscadas soluções para verificar quando vale a pena ou não utilizar o cache através de técnicas de profiling, multithreading, alterações na base de dados, aprendizado de máquina, análise do fecho transitivo das chamadas, "program slicing", etc. Outra ameaça está na utilização da infraestrutura sem solicitação do cache ou gargalos na utilização desta estrutura. Nos trabalhos futuros, análise de profiling e multithreading podem resolver este problema. Outra evolução necessária para o futuro é a extensão dos testes para problemas matemáticos mais abrangentes e reais. Um questionamento que pode ser levantado é a necessidade de análise e intervenção manual na classificação das funções, tal tarefa pode ser implementada de forma automática em trabalhos futuros. Por fim, a ameaça à validade do framework estar implementado em Python é assumida e não há intenção de estender as técnicas desenvolvidas para outras linguagens de programação, uma vez que o que estão sendo validadas são as abordagens e o conhecimento que elas geram para tentar responder às questões de pesquisa apresentadas.
+
+Diante destes quadros, conclui-se que há espaço para evolução do framework para chegar no nível dos trabalhos relacionados. Por outro lado, há também muita oportunidade para crescimento da pesquisa neste tema (gargalos de velocidade em cenários diferentes, adição de novas técnicas, detecção de locais de aplicação, etc).
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+%%\bibliographystyle{ACM-Reference-Format}
+\bibliographystyle{ieeetr}
+\bibliography{art_cv2020_xrefs}
+
+\end{document}
+\endinput
+%%
+%% End of file 'art_cv2020_1short.tex'.
