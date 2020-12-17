@@ -159,7 +159,7 @@ A partir de então, desdobramos a questão geral nas seguintes questões especí
 
 \section{Definições do protocolo da revisão}
 \subsection{Estratégia de busca e fonte de pesquisa}
-A estratégia de busca desta RSL seguirá a metodologia híbrida descrita nos estudos de Mourão et al. \cite{mourao2020performance}, que combina a pesquisa em base de dados bibliográfica com \textit{snowballing} paralelo ou sequencial para atingir um bom equilíbrio entre as métricas de \textit{precision} e \textit{recall}.
+A estratégia de busca desta RSL seguirá a metodologia híbrida descritas nos estudos de Mourão et al. \cite{mourao2020performance}, que combina a pesquisa em base de dados bibliográfica com \textit{snowballing} paralelo ou sequencial para atingir um bom equilíbrio entre as métricas de \textit{precision} e \textit{recall}.
 
 Ainda de acordo com os estudos de Mourão et al. \cite{mourao2020performance}, a pesquisa será feita na base da biblioteca digital Scopus, que mostrou ter a cobertura mais eficaz do estudo referenciado, considerando o esforço necessário, quando complementada com uma das técnicas de \textit{snowballing} descrita no estudo.
 
@@ -177,7 +177,7 @@ Com as questões de pesquisa definidas, devemos associá-las aos critérios de p
 
 - \textbf{Outcome/Resultados (O):} {\textit {aceleração, incluindo técnicas, métodos, ferramentas, abordagens, bibliotecas, algoritmos utilizados para acelerar a execução de implementações em linguagens de script.}}
 
-A partir das questões de pesquisa, associadas aos critérios de pesquisa PICO, chegamos as seguintes substrings de busca, divididas dentro das áreas do critério: 
+A partir das questões de pesquisa, associadas aos critérios de pesquisa PICO, chegamos às seguintes substrings de busca, divididas dentro das áreas do critério: 
 
 - \textbf{População (P):} {\textit {(“script”);}}
 
@@ -191,7 +191,7 @@ Assim, concatenando através do operador lógico AND as palavras e operadores ac
 
 {\textit {(“script”) AND (“recomputation” OR “re-computation” OR “recomputing” OR “re-computing” OR “incremental computing” OR “incremental computation” OR “incremental recomputation” OR “incremental re-computation” OR “memoize” OR “memoization”) AND (“speeding up” OR “speedup” OR “speed up” OR “accelerate” OR “improve” OR “improving” OR “fast” OR “performance”)}}
 
-Link para a planilha com a lista das publicações retornadas pela pesquisa, com os respectivos resultados de filtragem:
+Segue link para a planilha com a lista das publicações retornadas pela pesquisa, com os respectivos resultados de filtragem:
 
 \url{http://bit.ly/37s6Vfw}
 
@@ -201,11 +201,11 @@ Geralmente o mecanismo de busca não retorna em sua totalidade trabalhos relacio
 
 - No primeiro filtro (\textbf{F1}), serão lidos \textbf{o título} e \textbf {o resumo} das publicações para aplicação dos critérios de exclusão. Aqueles com status “OK” ou que ainda reste dúvida “??” em relação à exclusão passarão para a próxima fase;
 
-- No segundo filtro (\textbf{F2}), para as linhas dos trabalhos que não foram excluídos, serão lidas \textbf{a introdução} e \textbf{a conclusão}, de tal forma que se faça a exclusão de alguma publicação que ainda haja dúvida ou que se retifique para excluído, mesmo após ter passado por F1
+- No segundo filtro (\textbf{F2}), para as linhas dos trabalhos que não foram excluídos, serão lidas \textbf{a introdução} e \textbf{a conclusão}, de tal forma que se faça a exclusão de alguma publicação que ainda haja dúvida ou que se retifique para excluído, mesmo após ter passado por F1;
 
 - Por fim, no terceiro filtro (\textbf{F3}), para aqueles que restaram na tabela, a publicação será \textbf{lida de forma integral} para ratificação e inclusão na lista final dos artigos a serem considerados por ocasião da RSL, para então serem procedidos os trabalhos de \textit{snowballing}.
 
-Como citado anteriormente, nas três fases as quais as publicações retornadas na pesquisa via string serão submetidas, aplicamos critérios de exclusão para definirmos quais avançam para as fases subsequentes, conforme as definições a seguir:
+Como citado anteriormente, nas três fases às quais as publicações retornadas na pesquisa via string serão submetidas, aplicamos critérios de exclusão para definirmos quais avançam para as fases subsequentes, conforme as definições a seguir:
 
 - \textbf{CE1:} publicações que não tratam de linguagens de script;
 
@@ -227,9 +227,9 @@ A abordagem \textbf{NÃO PODE:} utilizar computação em nuvem, fazer implementa
 
 Além da classificação segundo os critérios anteriormente definidos, pode ser selecionada alguma publicação que será classificada como \textit{survey (S)}, que não será selecionada para inclusão nos dados da RSL, mas será considerada por ocasião da etapa de \textit{snowballing}.
 
-O artigo de controle, que deve ser retornado por ocasião da pesquisa na base, é o artigo referência de implementação de uma técnica de otimização baseada em memoization, para aceleração de experimentos escritos em Python. Os autores são os Professores P. Guo e D. Engler e o título do artigo é "Using automatic persistent memoization to facilitate data analysis scripting" \cite{guo2011using}.
+O artigo de controle, que deve ser retornado por ocasião da pesquisa na base, é o artigo referência de implementação de uma técnica de otimização baseada em \textit{memoization}, para aceleração de experimentos escritos em Python. Os autores são os Professores P. Guo e D. Engler e o título do artigo é "Using automatic persistent memoization to facilitate data analysis scripting" \cite{guo2011using}.
 
-Link para a planilha com a lista das publicações retornadas pela pesquisa, com os respectivos resultados de filtragem:
+Segue novamente o link para a planilha com a lista das publicações retornadas pela pesquisa, com os respectivos resultados de filtragem:
 
 \url{http://bit.ly/37s6Vfw}
 
@@ -246,7 +246,7 @@ Após a busca inicial (string de busca na base Scopus), dos 67 artigos retornado
 
 O próximo passo é, a partir de "s0", passar todas as referências incluídas nos 4 artigos pelo mesmo processo de filtragem e seleção aos quais eles foram submetidos, que é o processo de \textit{backward snowballing 1} ou primeira iteração do \textit{backward snowballing}. Foram analisadas 199 referências (vide coluna \#refs da Figura 1), sendo que foram selecionados para incorporar o \textit{corpus} da RSL mais 22 artigos, tendo 9 repetições, portanto, mais 13 novos artigos, totalizando 17 artigos no novo \textit{corpus}, que será o "s1".
 
-A análise conclusiva desta RSL será feita para estes 17 artigos, sendo que o conjunto será submetido ao \textit{forward snowballing}, onde serão analisados todos os artigos que citam estes 17 artigos, que totalizou 513 artigos a serem filtrados (vide coluna \#cit.by da Figura 2). Conforme pode ser visto na Figura 2, o \textit{forward snowballing} já foi iniciado, mas foi interrompido para o registro deste artigo.
+A análise conclusiva desta RSL, inicialmente será feita para estes 17 artigos, sendo que o conjunto será submetido ao \textit{forward snowballing}, onde serão analisados todos os artigos que citam estes 17 artigos, que totalizou 513 artigos a serem filtrados (vide coluna \#cit.by da Figura 2). Conforme pode ser visto na Figura 2, o \textit{forward snowballing} já foi iniciado, mas foi interrompido para o registro deste artigo.
 
 \begin{figure}[H]
   \centering
@@ -254,7 +254,7 @@ A análise conclusiva desta RSL será feita para estes 17 artigos, sendo que o c
   \caption{Conjunto "s1": adição de novos artigos após backward snowballing de "s0"}
 \end{figure}
 
-A distribuição das publicações por ano é relativamente equilibrada, compreendendo o período entre 2007 e 2019, com um salto maior no ano de 2017, com 3 publicações no tema e dois anos sem publicações, 2008 e 2018. Essa distribuição está ilustrada na Figura 3.
+A distribuição das publicações por ano é relativamente equilibrada, compreendendo o período entre 2007 e 2019, com um salto maior no ano de 2017, com 3 publicações no tema e dois anos sem publicações, 2008 e 2018. Essa distribuição está na Figura 3.
 
 \begin{figure}[H]
   \centering
@@ -262,7 +262,7 @@ A distribuição das publicações por ano é relativamente equilibrada, compree
   \caption{Distribuição das publicações por ano, entre 2007 e 2019}
 \end{figure}
 
-A distribuição por locais de publicação também é equilibrada, se considerarmos que para 17 artigos, temos 12 locais de publicação diferentes. Assim, quem tem mais de uma publicação acaba se destacando como a ACM PLDI (\#3), ACM ISSTA (\#2), ACM/IEEE ICSE (\#2) e Springer LNCS (\#2), conforme pode ser visto na Figura 4.
+A distribuição por locais de publicação também é equilibrada, se considerarmos que para 17 artigos, temos 12 locais de publicação diferentes. Assim, o local com mais de uma publicação acaba se destacando como a ACM PLDI (\#3), ACM ISSTA (\#2), ACM/IEEE ICSE (\#2) e Springer LNCS (\#2), conforme está na Figura 4.
 
 \begin{figure}[H]
   \centering
@@ -270,7 +270,7 @@ A distribuição por locais de publicação também é equilibrada, se considera
   \caption{Distribuição por locais de publicação}
 \end{figure}
 
-A relação de autores também é relativamente bem distribuída, com 13 autores para os 17 trabalhos. Porém, temos alguns destaques de autores principais: Selakovic et al. (\#3), Mertz et al. (\#2) e Guo et al. (\#2), conforme pode ser visto na Figura 5. 
+A relação de autores também é relativamente bem distribuída, com 13 autores para 17 trabalhos. Porém, temos alguns destaques de autores principais: Selakovic et al. (\#3), Mertz et al. (\#2) e Guo et al. (\#2), conforme pode ser visto na Figura 5. 
 
 \begin{figure}[H]
   \centering
@@ -278,38 +278,38 @@ A relação de autores também é relativamente bem distribuída, com 13 autores
   \caption{Distribuição por autores principais}
 \end{figure}
 
-Além do quadro resumo da Figura 2, os detalhes das 17 publicações podem ser encontrados nas referências do artigo: \cite{guo2011using}, \cite{selakovic2016performance}, \cite{selakovic2017actionable}, \cite{mertz2017understanding}, \cite{gal2009trace}, \cite{guo2010towards}, \cite{logozzo2010rata}, \cite{hackett2012fast}, \cite{costa2013just}, \cite{ahn2014improving}, \cite{selakovic2015poster}, \cite{gong2015jitprof}, \cite{sivasubramanian2007analysis}, \cite{gupta2011trigger}, \cite{zhu2012saving}, \cite{mertz2016qualitative} e \cite{ports2010transactional}.
+Além do quadro resumo da Figura 2, os detalhes das 17 publicações podem ser encontrados nas referências do artigo: \cite{guo2011using}, \cite{selakovic2016performance}, \cite{selakovic2017actionable}, \cite{mertz2017understanding}, \cite{gal2009trace}, \cite{guo2010towards}, \cite{logozzo2010rata}, \cite{hackett2012fast}, \cite{costa2013just}, \cite{ahn2014improving}, \cite{selakovic2015poster}, \cite{gong2015jitprof}, \cite{sivasubramanian2007analysis}, \cite{gupta2011trigger}, \cite{zhu2012saving}, \cite{mertz2016qualitative} e \cite{ports2010transactional}. Além disso, um cenário completo do processo realizado até agora está ilustrado na Figura 6, que pode ser encontrada na página após as referências, em formato estendido.
 
 \subsection{Análise das questões de pesquisa}
 Adentrando nos detalhes dos artigos, as respostas às questões de pesquisa serão elencadas.
 
 Nesta versão do trabalho, a decisão foi pela análise dos artigos dos principais autores selecionados, tendo como critério aqueles que tiveram mais de uma publicação, após passagem pelos filtros. Assim, foram analisados 7 artigos dos 17 selecionados após o \textit{backward snowballing 1}, dos autores Selakovic et al. (\#3), Mertz et al. (\#2) e Guo et al. (\#2), conforme listado na Figura 5. Isso cobre mais de 40\% do conjunto "s1".
 
-Os trabalhos de Mertz et al. são dois artigos sobre cache a nível de aplicação, um deles é um \textit{survey} e o outro um estudo qualitativo. Assim, os autores não propõem uma abordagem, mas fazem a comparação e avaliação de várias abordagens existentes. Assim, decidiu-se por não incluir este conjunto de abordagens neste trabalho, uma vez que várias que se enquadram na pesquisa foram filtradas e selecionadas no processo de \textit{snowballing}. Na verdade, após uma série de pesquisas, verificou-se que os autores implementaram uma nova abordagem própria em 2018, mas que por alguma razão ainda não apareceu no radar da revisão, APLCache, que é um framework que implementa cache a nível de aplicação. Por hora decidiu-se por não inclui-la, uma vez que romperia com a sistemática da revisão, mas será monitorado se a abordagem aparecerá nas próximas iterações do \textit{snowballing}.
+Os trabalhos de Mertz et al. são dois artigos sobre cache no nível de aplicação, um deles é um \textit{survey} e o outro um estudo qualitativo. Assim, os autores não propõem uma abordagem, mas fazem a comparação e avaliação de várias abordagens existentes. Decidiu-se por não incluir este conjunto de abordagens neste trabalho, uma vez que várias que se enquadram na pesquisa foram filtradas e selecionadas no processo de \textit{snowballing}. Após uma série de pesquisas, verificou-se que os autores implementaram uma nova abordagem própria em 2018, mas que por alguma razão ainda não apareceu na revisão, APLCache, que é um framework que implementa cache no nível de aplicação. Por hora decidiu-se por não inclui-la, uma vez que romperia com a sistemática da revisão, mas será monitorado se a abordagem aparecerá nas próximas iterações do \textit{snowballing}.
 
-Assim, o comparativo para responder às questões será entre os trabalhos de Selakovic et al. e Guo et al., sendo que são implementados em ambientes e com contextualizações diferentes, no caso da primeira para JavaScript e no caso do segundo para Python. Cabe ressaltar que o trabalho da pesquisa de Guo et al. é o único dentre os selecionados que trata do ecossistema Python. Nos demais trabalhos, temos dois cuja abordagem trata de cache a nível de banco em memória e um a nível de rede, todos os demais tratam de aceleração em ambientes JavaScript. Este cenário começa a mudar por ocasião da evolução do \textit{snowballing} no rastro dos trabalhos de Guo et al.
+Portanto, o comparativo para responder às questões de pesquisa será entre os trabalhos de Selakovic et al. e Guo et al., sendo que são implementados em ambientes e com contextualizações diferentes, no caso da primeira para JavaScript e no caso do segundo para Python. Cabe ressaltar que o trabalho da pesquisa de Guo et al. é o único dentre os selecionados que trata do ecossistema Python. Nos demais trabalhos, temos dois cuja abordagem trata de cache a nível de banco em memória e um a nível de rede, todos os demais tratam de aceleração em ambientes JavaScript. Este cenário começa a mudar por ocasião da evolução do \textit{snowballing}, no rastro dos trabalhos de Guo et al.
 
 - \textbf{QP1:} {\textit{Quais são as abordagens utilizadas para acelerar a execução de softwares escritos em linguagens de script?}}
 
->> \textbf{Guo et al.:} a abordagem utilizada é baseada na ferramenta \textbf{IncPy}, onde o autor adicionou mais de 3 mil linhas de código em C para reimplementar o interpretador Python 2.6.3, no qual inseriu a abordagem proposta, que faz uso de memoization de forma automática.
+>> \textbf{Guo et al.:} a abordagem utilizada é baseada na ferramenta \textbf{IncPy}, onde o autor adicionou mais de 3 mil linhas de código em C para reimplementar o interpretador Python 2.6.3, no qual inseriu a abordagem proposta, que faz uso de \textit{memoization} de forma automática.
 
 >> \textbf{Selakovic et al.:} a abordagem utilizada é baseada na ferramenta \textbf{DecisionProf}, que é um \textit{Profiler} JavaScript que faz sugestões de otimização no código analisado.
 
 - \textbf{QP2:} {\textit{Quais técnicas são utilizadas pelas abordagens?}}
 
->> \textbf{Guo et al.:} a abordagem utiliza como técnica principal memoization automática de funções puras. Para tal, faz a análise dinâmica do cache das funções através da comparação de seu hash (armazenado no sistema de arquivos), gerenciamento de dependência das funções e rastreamento de chamadas do sistema.
+>> \textbf{Guo et al.:} a abordagem utiliza como técnica principal \textit{memoization} automática de funções puras. Para tal, faz a análise dinâmica do cache das funções através da comparação de seu hash (armazenado no sistema de arquivos), gerenciamento de dependência das funções e rastreamento de chamadas do sistema.
 
 >> \textbf{Selakovic et al.:} a abordagem utiliza como técnica principal \textit{profiling}  para encontrar gargalos e oportunidades de reordenamento de expressões lógicas que podem ser otimizadas, análise dinâmica e análise de AST.
 
 - \textbf{QP3:} {\textit{Qual é o grau de disponibilidade das abordagens, que permita reprodutibilidade?}}
 
->> \textbf{Guo et al.:} o IncPy está disponível para download e instalação, bem como está bem documentado e tudo de forma centralizada, no GitHub da ferramenta.
+>> \textbf{Guo et al.:} o IncPy está disponível para download e instalação, bem como está bem documentado e de forma centralizada, no GitHub da ferramenta.
 
 >> \textbf{Selakovic et al.:} a parte teórica necessária à compreensão da abordagem implementada pelo DecisionProf está disponível através dos artigos dos autores e da tese de doutorado da autora principal, mas não foi encontrado nos artigos ou nas páginas da autora principal (profissional, acadêmica e GitHub) nenhuma referência ou documentação sobre o DecisionProf.
 
 - \textbf{QP4:} {\textit{Qual o grau de intervenção do usuário?}}
 
->> \textbf{Guo et al.:} após instalação, atuação automática através do interpretador otimizado com a possibilidade de memoization transparente nas funções puras (zero intervenção).
+>> \textbf{Guo et al.:} após instalação, atuação automática através do interpretador otimizado com a possibilidade de \textit{memoization} transparente nas funções puras (zero intervenção).
 
 >> \textbf{Selakovic et al.:} após instalação, a ferramenta sugere otimizações no código, que devem ser reescritas pelo usuário para então proceder uma nova execução do código otimizado.
 
@@ -321,7 +321,7 @@ Assim, o comparativo para responder às questões será entre os trabalhos de Se
 
 - \textbf{QP6:} {\textit{Quais são as vantagens e desvantagens observadas?}}
 
->> \textbf{Guo et al.:} quanto às vantagens, podemos citar a aceleração após a primeira execução do script e a classificação automáticas das funções pura, sem intervenção do usuário. Quanto às desvantagens, a principal a ser citada é a implementação ser limitada à versão 2.6.3 do interpretador Python.
+>> \textbf{Guo et al.:} quanto às vantagens, podemos citar a aceleração após a primeira execução do script e a classificação automática das funções puras, sem intervenção do usuário. Quanto às desvantagens, a principal a ser citada é a implementação ser limitada à versão 2.6.3 do interpretador Python.
 
 >> \textbf{Selakovic et al.:} quanto às vantagens, podemos citar a melhora da performance após a implementação das sugestões da ferramenta. Entre às desvantagens, destacam-se a necessidade de reescrita do código por parte do usuário e a sobrecarga do tempo de execução que ocorre na ocasião da análise pelo \textit{profiler}.
 
@@ -329,13 +329,13 @@ Assim, o comparativo para responder às questões será entre os trabalhos de Se
 
 >> \textbf{Guo et al.:} no caso do IncPy, podemos apresentar duas questões em aberto que seriam importantes de serem atacadas: (i) a necessidade de estudo para verificar se há possibilidade de redução do tempo na primeira execução e (ii) a implementação das técnicas ou solução ser independente de interpretador.
 
->> \textbf{Selakovic et al.:} no caso do DecisionProf, também existem duas questões importantes em aberto: (i) estudo para redução do tempo da análise (\textit{profiling}) e (ii) automatização da reescrita do código otimizado ou talvez a implementação através de uma intervenção mais rápida, como anotações, por exemplo.
+>> \textbf{Selakovic et al.:} no caso do DecisionProf, também existem duas questões importantes em aberto: (i) estudo para redução do tempo da análise (\textit{profiling}) e (ii) automatização da reescrita do código otimizado ou a implementação através de uma intervenção menos custosa, como anotações, por exemplo.
 
 
 \section{Ameaças à validade}
 Nesta revisão, podem ser identificadas cinco principais ameaças à validade.
 
-A primeira e mais crítica é o fato de ter sido realizada somente uma primeira iteração parcial do \textit{snowballing}, após a primeira busca. O \textit{backward snowballing} foi concluído. Com o início da primeira iteração de \textit{forward snowballing}, que não foi completado, começam a aparecer as abordagens baseadas em Python, por causa do artigo de controle, o que faz com que a pesquisa seja promissora no sentido de aumentar a abrangência das técnicas em relação a outras linguagens de script relevantes. Portanto, mostra que o estudo deve ser continuado para uma nova versão até convergir as iterações do \textit{snowballing}, garantindo assim a maior cobertura possível.
+A primeira e mais crítica é o fato de ter sido realizada somente uma primeira iteração parcial do \textit{snowballing}, após a primeira busca e a análise somente de parte do \textit{corpus} "s1" para responder às questões de pesquisa. O \textit{backward snowballing} foi concluído. Com o início da primeira iteração de \textit{forward snowballing}, que não foi completado, começam a aparecer as abordagens baseadas em Python, por causa do artigo de controle, o que faz com que a pesquisa seja promissora no sentido de aumentar a abrangência das técnicas em relação a outras linguagens de script relevantes. Portanto, mostra que o estudo deve ser continuado para uma nova versão até convergir as iterações do \textit{snowballing}, garantindo assim a maior cobertura possível.
 
 Uma segunda ameaça é o fato da revisão ter foco somente em linguagens de script, o que está definido inclusive no título. Uma revisão maior pode ser feita para abranger outros tipos de linguagens, porém isso consumiria um tempo maior, que poderia ser revertido na continuidade das próximas iterações dessa mesma revisão, além de não ser o foco da pesquisa principal.
 
@@ -361,7 +361,7 @@ Após a pesquisa, filtragem e análise dos artigos, concluiu-se que a heterogene
 
 Dada a diversidade e capilaridade dos sistemas da atualidade, o que traz junto a grande diferença entre os clientes das aplicações, faz com que a capacidade de adaptabilidade e seletividade seja um requisito muito presente nas novas abordagens, complementando e evoluindo a partir das soluções clássicas de otimização.
 
-Mesmo com o levantamento realizado neste trabalho, muitas questões ainda ficam em aberto, como, por exemplo, se as abordagens tem espaço para compartilhar técnicas que foram implementadas em determinados cenários. Funcionariam em outros cenários ou linguagens?
+Mesmo com o levantamento realizado neste trabalho, muitas questões ainda ficam em aberto, como, por exemplo, se as abordagens tem espaço para compartilhar técnicas que foram implementadas em determinados cenários. Funcionariam em outros cenários ou linguagens? Mais especificamente, será que técnicas que foram utilizadas para acelerar a execução no ambiente JavaScript, respeitadas suas peculiaridades, poderiam também ser utilizadas para otimizar experimentos em Python? 
 
 Diante deste quadro, conclui-se que há espaço para evolução das técnicas apresentadas pelas abordagens atuais de aceleração da execução de scripts. Além disso, com o intuito de completar possíveis lacunas ainda deixadas, há a necessidade de seguir nas próximas iterações desta revisão, para então ficar confirmado quais lacunas precisam ser alvo de novas pesquisas em aceleração de scripts.
 
@@ -371,6 +371,11 @@ Diante deste quadro, conclui-se que há espaço para evolução das técnicas ap
 %%\bibliographystyle{ACM-Reference-Format}
 \bibliographystyle{ieeetr}
 \bibliography{art_cv2020_xrefs}
+
+\begin{figure*}
+  \includegraphics[width=\textwidth]{rsl_snowb_2020_2.jpg}
+  \caption{RSL - busca Scopus "s0" e primeira iteração \textit{snowballing} "s1"}
+\end{figure*}
 
 \end{document}
 \endinput
